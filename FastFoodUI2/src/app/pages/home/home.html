@@ -1,0 +1,103 @@
+<div class="row mb-4">
+
+<div class="col-md-4">
+
+<input
+
+class="form-control"
+
+placeholder="Search food..."
+
+[(ngModel)]="search"
+
+(input)="loadFoods()">
+
+</div>
+
+<div class="col-md-4">
+
+<select
+
+class="form-select"
+
+[(ngModel)]="selectedCategory"
+
+(change)="loadFoods()">
+
+<option [value]="0">
+
+All Categories
+
+</option>
+
+<option
+
+*ngFor="let c of categories"
+
+[value]="c.id">
+
+{{c.name}}
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div
+
+class="col-lg-3 col-md-4 mb-4"
+
+*ngFor="let food of foods">
+
+<div class="card h-100 shadow-sm">
+
+<img
+
+class="card-img-top"
+
+[src]="food.imageUrl"
+
+height="220">
+
+<div class="card-body">
+
+<h5>
+
+{{food.name}}
+
+</h5>
+
+<p>
+
+{{food.categoryName}}
+
+</p>
+
+<h4>
+
+₹ {{food.price}}
+
+</h4>
+
+<a
+
+class="btn btn-warning w-100"
+
+[routerLink]="['/food', food.id]">
+
+View Details
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>

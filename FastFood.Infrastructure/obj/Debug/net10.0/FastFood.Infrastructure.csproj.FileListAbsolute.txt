@@ -1,0 +1,17 @@
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\bin\Debug\net10.0\FastFood.Infrastructure.deps.json
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\bin\Debug\net10.0\FastFood.Infrastructure.runtimeconfig.json
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\bin\Debug\net10.0\FastFood.Infrastructure.dll
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\bin\Debug\net10.0\FastFood.Infrastructure.pdb
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\bin\Debug\net10.0\FastFood.Core.dll
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\bin\Debug\net10.0\FastFood.Core.pdb
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\FastFood.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\FastFood.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\FastFood.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\FastFood.Infrastructure.AssemblyInfo.cs
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\FastFood.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\FastFood.A626D65F.Up2Date
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\FastFood.Infrastructure.dll
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\refint\FastFood.Infrastructure.dll
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\FastFood.Infrastructure.pdb
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\FastFood.Infrastructure.genruntimeconfig.cache
+C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\obj\Debug\net10.0\ref\FastFood.Infrastructure.dll

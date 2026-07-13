@@ -1,0 +1,71 @@
+<div class="container mt-4">
+
+<h2>
+
+Categories
+
+</h2>
+
+<table class="table table-hover">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Name</th>
+
+<th>Image</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr *ngFor="let category of categories">
+
+<td>{{category.id}}</td>
+
+<td>{{category.name}}</td>
+
+<td>
+
+<img
+[src]="category.imageUrl"
+width="70">
+
+</td>
+
+<td>
+
+<button class="btn btn-primary btn-sm">
+
+Edit
+
+</button>
+
+<button class="btn btn-danger btn-sm ms-2">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<button class="btn btn-success">
+
+Add Category
+
+</button>
+
+</div>

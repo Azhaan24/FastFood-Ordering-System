@@ -1,0 +1,79 @@
+<hr>
+
+<h4>
+
+Reviews
+
+</h4>
+
+<select
+
+class="form-select mb-3"
+
+[(ngModel)]="rating">
+
+<option [value]="5">5</option>
+
+<option [value]="4">4</option>
+
+<option [value]="3">3</option>
+
+<option [value]="2">2</option>
+
+<option [value]="1">1</option>
+
+</select>
+
+<textarea
+
+class="form-control mb-3"
+
+rows="3"
+
+[(ngModel)]="comment"
+
+placeholder="Write review">
+
+</textarea>
+
+<button
+
+class="btn btn-primary"
+
+(click)="submitReview()">
+
+Submit Review
+
+</button>
+
+<hr>
+
+<div
+
+class="card mb-3"
+
+*ngFor="let review of reviews">
+
+<div class="card-body">
+
+<h5>
+
+{{review.userName}}
+
+</h5>
+
+<p>
+
+⭐ {{review.rating}} / 5
+
+</p>
+
+<p>
+
+{{review.comment}}
+
+</p>
+
+</div>
+
+</div>

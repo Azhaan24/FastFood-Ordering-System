@@ -1,0 +1,65 @@
+<div class="container mt-4">
+
+<h2>
+
+Add Food
+
+</h2>
+
+<input
+
+class="form-control mb-3"
+
+placeholder="Food Name"
+
+[(ngModel)]="food.name">
+
+<textarea
+
+class="form-control mb-3"
+
+placeholder="Description"
+
+[(ngModel)]="food.description">
+
+</textarea>
+
+<input
+
+type="number"
+
+class="form-control mb-3"
+
+placeholder="Price"
+
+[(ngModel)]="food.price">
+
+<input
+
+class="form-control mb-3"
+
+placeholder="Image URL"
+
+[(ngModel)]="food.imageUrl">
+
+<input
+
+type="number"
+
+class="form-control mb-3"
+
+placeholder="Category Id"
+
+[(ngModel)]="food.categoryId">
+
+<button
+
+class="btn btn-success"
+
+(click)="save()">
+
+Save
+
+</button>
+
+</div>

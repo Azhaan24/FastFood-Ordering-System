@@ -1,0 +1,124 @@
+<div class="row">
+
+<div class="col-md-4">
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h4>{{editing ? 'Edit Food' : 'Add Food'}}</h4>
+
+<input
+class="form-control mb-3"
+placeholder="Name"
+[(ngModel)]="form.name">
+
+<textarea
+class="form-control mb-3"
+placeholder="Description"
+[(ngModel)]="form.description"></textarea>
+
+<input
+type="number"
+class="form-control mb-3"
+placeholder="Price"
+[(ngModel)]="form.price">
+
+<select
+class="form-select mb-3"
+[(ngModel)]="form.categoryId">
+
+<option
+*ngFor="let c of categories"
+[value]="c.id">
+
+{{c.name}}
+
+</option>
+
+</select>
+
+<input
+type="file"
+class="form-control mb-3"
+(change)="choose($event)">
+
+<button
+class="btn btn-success w-100"
+(click)="save()">
+
+{{editing ? 'Update' : 'Add'}}
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-8">
+
+<table class="table table-striped">
+
+<thead>
+
+<tr>
+
+<th>Image</th>
+
+<th>Name</th>
+
+<th>Price</th>
+
+<th></th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr *ngFor="let food of foods">
+
+<td>
+
+<img
+[src]="food.imageUrl"
+width="80">
+
+</td>
+
+<td>{{food.name}}</td>
+
+<td>₹ {{food.price}}</td>
+
+<td>
+
+<button
+class="btn btn-primary btn-sm me-2"
+(click)="edit(food)">
+
+Edit
+
+</button>
+
+<button
+class="btn btn-danger btn-sm"
+(click)="delete(food)">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>

@@ -1,0 +1,1148 @@
+2026-07-14 00:07:40.885 +05:30 [INF] User profile is available. Using 'C:\Users\hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-14 00:23:58.523 +05:30 [INF] User profile is available. Using 'C:\Users\hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-14 00:24:00.959 +05:30 [INF] Executed DbCommand (374ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [FastFoodDb];
+2026-07-14 00:24:01.136 +05:30 [INF] Executed DbCommand (163ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [FastFoodDb] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2026-07-14 00:24:01.189 +05:30 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-14 00:24:01.197 +05:30 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-07-14 00:24:01.246 +05:30 [INF] Executed DbCommand (42ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-07-14 00:24:01.362 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-07-14 00:24:01.399 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-14 00:24:01.406 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-14 00:24:01.429 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-07-14 00:24:01.450 +05:30 [INF] Applying migration '20260711205947_InitialCreate'.
+2026-07-14 00:24:01.543 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoles] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(256) NULL,
+    [NormalizedName] nvarchar(256) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);
+2026-07-14 00:24:01.550 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUsers] (
+    [Id] nvarchar(450) NOT NULL,
+    [FullName] nvarchar(max) NOT NULL,
+    [Address] nvarchar(max) NULL,
+    [ProfileImage] nvarchar(max) NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UserName] nvarchar(256) NULL,
+    [NormalizedUserName] nvarchar(256) NULL,
+    [Email] nvarchar(256) NULL,
+    [NormalizedEmail] nvarchar(256) NULL,
+    [EmailConfirmed] bit NOT NULL,
+    [PasswordHash] nvarchar(max) NULL,
+    [SecurityStamp] nvarchar(max) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    [PhoneNumber] nvarchar(max) NULL,
+    [PhoneNumberConfirmed] bit NOT NULL,
+    [TwoFactorEnabled] bit NOT NULL,
+    [LockoutEnd] datetimeoffset NULL,
+    [LockoutEnabled] bit NOT NULL,
+    [AccessFailedCount] int NOT NULL,
+    CONSTRAINT [PK_AspNetUsers] PRIMARY KEY ([Id])
+);
+2026-07-14 00:24:01.557 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Carts] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Carts] PRIMARY KEY ([Id])
+);
+2026-07-14 00:24:01.562 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Categories] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(100) NOT NULL,
+    [Description] nvarchar(max) NULL,
+    [ImageUrl] nvarchar(max) NULL,
+    CONSTRAINT [PK_Categories] PRIMARY KEY ([Id])
+);
+2026-07-14 00:24:01.569 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Orders] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] nvarchar(max) NOT NULL,
+    [OrderDate] datetime2 NOT NULL,
+    [TotalAmount] decimal(18,2) NOT NULL,
+    [Status] nvarchar(max) NOT NULL,
+    [DeliveryAddress] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_Orders] PRIMARY KEY ([Id])
+);
+2026-07-14 00:24:01.577 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoleClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [RoleId] nvarchar(450) NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.584 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [UserId] nvarchar(450) NOT NULL,
+    [ClaimType] nvarchar(max) NULL,
+    [ClaimValue] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.592 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserLogins] (
+    [LoginProvider] nvarchar(450) NOT NULL,
+    [ProviderKey] nvarchar(450) NOT NULL,
+    [ProviderDisplayName] nvarchar(max) NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY ([LoginProvider], [ProviderKey]),
+    CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.599 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserRoles] (
+    [UserId] nvarchar(450) NOT NULL,
+    [RoleId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY ([UserId], [RoleId]),
+    CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [AspNetRoles] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.606 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetUserTokens] (
+    [UserId] nvarchar(450) NOT NULL,
+    [LoginProvider] nvarchar(450) NOT NULL,
+    [Name] nvarchar(450) NOT NULL,
+    [Value] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY ([UserId], [LoginProvider], [Name]),
+    CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.613 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [RefreshTokens] (
+    [Id] int NOT NULL IDENTITY,
+    [Token] nvarchar(max) NOT NULL,
+    [Expires] datetime2 NOT NULL,
+    [IsRevoked] bit NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [UserId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_RefreshTokens] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_RefreshTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.620 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [FoodItems] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(150) NOT NULL,
+    [Description] nvarchar(max) NULL,
+    [Price] decimal(18,2) NOT NULL,
+    [ImageUrl] nvarchar(max) NULL,
+    [IsAvailable] bit NOT NULL,
+    [CategoryId] int NOT NULL,
+    CONSTRAINT [PK_FoodItems] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_FoodItems_Categories_CategoryId] FOREIGN KEY ([CategoryId]) REFERENCES [Categories] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.626 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [CartItems] (
+    [Id] int NOT NULL IDENTITY,
+    [CartId] int NOT NULL,
+    [FoodItemId] int NOT NULL,
+    [Quantity] int NOT NULL,
+    CONSTRAINT [PK_CartItems] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_CartItems_Carts_CartId] FOREIGN KEY ([CartId]) REFERENCES [Carts] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_CartItems_FoodItems_FoodItemId] FOREIGN KEY ([FoodItemId]) REFERENCES [FoodItems] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.633 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [OrderItems] (
+    [Id] int NOT NULL IDENTITY,
+    [OrderId] int NOT NULL,
+    [FoodItemId] int NOT NULL,
+    [Quantity] int NOT NULL,
+    [UnitPrice] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_OrderItems] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_OrderItems_FoodItems_FoodItemId] FOREIGN KEY ([FoodItemId]) REFERENCES [FoodItems] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_OrderItems_Orders_OrderId] FOREIGN KEY ([OrderId]) REFERENCES [Orders] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.640 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Reviews] (
+    [Id] int NOT NULL IDENTITY,
+    [FoodItemId] int NOT NULL,
+    [UserId] nvarchar(max) NOT NULL,
+    [Rating] int NOT NULL,
+    [Comment] nvarchar(max) NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    CONSTRAINT [PK_Reviews] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Reviews_FoodItems_FoodItemId] FOREIGN KEY ([FoodItemId]) REFERENCES [FoodItems] ([Id]) ON DELETE CASCADE
+);
+2026-07-14 00:24:01.645 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetRoleClaims_RoleId] ON [AspNetRoleClaims] ([RoleId]);
+2026-07-14 00:24:01.650 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [RoleNameIndex] ON [AspNetRoles] ([NormalizedName]) WHERE [NormalizedName] IS NOT NULL;
+2026-07-14 00:24:01.656 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUserClaims_UserId] ON [AspNetUserClaims] ([UserId]);
+2026-07-14 00:24:01.661 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUserLogins_UserId] ON [AspNetUserLogins] ([UserId]);
+2026-07-14 00:24:01.668 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_AspNetUserRoles_RoleId] ON [AspNetUserRoles] ([RoleId]);
+2026-07-14 00:24:01.674 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [EmailIndex] ON [AspNetUsers] ([NormalizedEmail]);
+2026-07-14 00:24:01.681 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [UserNameIndex] ON [AspNetUsers] ([NormalizedUserName]) WHERE [NormalizedUserName] IS NOT NULL;
+2026-07-14 00:24:01.687 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_CartItems_CartId] ON [CartItems] ([CartId]);
+2026-07-14 00:24:01.693 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_CartItems_FoodItemId] ON [CartItems] ([FoodItemId]);
+2026-07-14 00:24:01.699 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_FoodItems_CategoryId] ON [FoodItems] ([CategoryId]);
+2026-07-14 00:24:01.706 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_OrderItems_FoodItemId] ON [OrderItems] ([FoodItemId]);
+2026-07-14 00:24:01.712 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_OrderItems_OrderId] ON [OrderItems] ([OrderId]);
+2026-07-14 00:24:01.726 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_RefreshTokens_UserId] ON [RefreshTokens] ([UserId]);
+2026-07-14 00:24:01.734 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Reviews_FoodItemId] ON [Reviews] ([FoodItemId]);
+2026-07-14 00:24:01.753 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260711205947_InitialCreate', N'10.0.9');
+2026-07-14 00:24:01.762 +05:30 [INF] Applying migration '20260712052102_CheckChanges'.
+2026-07-14 00:24:01.789 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260712052102_CheckChanges', N'10.0.9');
+2026-07-14 00:24:01.799 +05:30 [INF] Applying migration '20260712071117_AddOrderUserRelation'.
+2026-07-14 00:24:02.009 +05:30 [INF] Executed DbCommand (152ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @var nvarchar(max);
+SELECT @var = QUOTENAME([d].[name])
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Orders]') AND [c].[name] = N'UserId');
+IF @var IS NOT NULL EXEC(N'ALTER TABLE [Orders] DROP CONSTRAINT ' + @var + ';');
+ALTER TABLE [Orders] ALTER COLUMN [UserId] nvarchar(450) NOT NULL;
+2026-07-14 00:24:02.014 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_Orders_UserId] ON [Orders] ([UserId]);
+2026-07-14 00:24:02.020 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE [Orders] ADD CONSTRAINT [FK_Orders_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE NO ACTION;
+2026-07-14 00:24:02.025 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260712071117_AddOrderUserRelation', N'10.0.9');
+2026-07-14 00:24:02.040 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-07-14 00:24:02.572 +05:30 [INF] Executed DbCommand (32ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:24:02.593 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:24:02.816 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName])
+VALUES (@p0, @p1, @p2, @p3);
+2026-07-14 00:24:02.849 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:24:02.855 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:24:02.867 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName])
+VALUES (@p0, @p1, @p2, @p3);
+2026-07-14 00:24:02.898 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 00:24:03.025 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@normalizedUserName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @normalizedUserName
+2026-07-14 00:24:03.182 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (DbType = DateTime2), @p5='?' (Size = 256), @p6='?' (DbType = Boolean), @p7='?' (Size = 4000), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTimeOffset), @p10='?' (Size = 256), @p11='?' (Size = 256), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (DbType = Boolean), @p18='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AspNetUsers] ([Id], [AccessFailedCount], [Address], [ConcurrencyStamp], [CreatedAt], [Email], [EmailConfirmed], [FullName], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [ProfileImage], [SecurityStamp], [TwoFactorEnabled], [UserName])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18);
+2026-07-14 00:24:03.206 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@normalizedRoleName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedRoleName
+2026-07-14 00:24:03.290 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@p='?' (Size = 450), @p1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[UserId], [a].[RoleId]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[UserId] = @p AND [a].[RoleId] = @p1
+2026-07-14 00:24:03.300 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedRoleName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedRoleName
+2026-07-14 00:24:03.346 +05:30 [INF] Executed DbCommand (23ms) [Parameters=[@normalizedUserName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @normalizedUserName
+2026-07-14 00:24:03.423 +05:30 [INF] Executed DbCommand (28ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 450), @p20='?' (Size = 450), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p21='?' (Size = 4000), @p5='?' (DbType = DateTime2), @p6='?' (Size = 256), @p7='?' (DbType = Boolean), @p8='?' (Size = 4000), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTimeOffset), @p11='?' (Size = 256), @p12='?' (Size = 256), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (DbType = Boolean), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (DbType = Boolean), @p19='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AspNetUserRoles] ([RoleId], [UserId])
+VALUES (@p0, @p1);
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p2, [Address] = @p3, [ConcurrencyStamp] = @p4, [CreatedAt] = @p5, [Email] = @p6, [EmailConfirmed] = @p7, [FullName] = @p8, [LockoutEnabled] = @p9, [LockoutEnd] = @p10, [NormalizedEmail] = @p11, [NormalizedUserName] = @p12, [PasswordHash] = @p13, [PhoneNumber] = @p14, [PhoneNumberConfirmed] = @p15, [ProfileImage] = @p16, [SecurityStamp] = @p17, [TwoFactorEnabled] = @p18, [UserName] = @p19
+OUTPUT 1
+WHERE [Id] = @p20 AND [ConcurrencyStamp] = @p21;
+2026-07-14 00:24:03.483 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-14 00:24:03.577 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 100), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 100), @p6='?' (Size = 4000), @p7='?' (Size = 4000), @p8='?' (Size = 100), @p9='?' (Size = 4000), @p10='?' (Size = 4000), @p11='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+MERGE [Categories] USING (
+VALUES (@p0, @p1, @p2, 0),
+(@p3, @p4, @p5, 1),
+(@p6, @p7, @p8, 2),
+(@p9, @p10, @p11, 3)) AS i ([Description], [ImageUrl], [Name], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([Description], [ImageUrl], [Name])
+VALUES (i.[Description], i.[ImageUrl], i.[Name])
+OUTPUT INSERTED.[Id], i._Position;
+2026-07-14 00:24:03.619 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FoodItems] AS [f]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-14 00:24:03.714 +05:30 [INF] Executed DbCommand (23ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (DbType = Boolean), @p4='?' (Size = 150), @p5='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p6='?' (DbType = Int32), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (DbType = Boolean), @p10='?' (Size = 150), @p11='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p12='?' (DbType = Int32), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (DbType = Boolean), @p16='?' (Size = 150), @p17='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+MERGE [FoodItems] USING (
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, 0),
+(@p6, @p7, @p8, @p9, @p10, @p11, 1),
+(@p12, @p13, @p14, @p15, @p16, @p17, 2)) AS i ([CategoryId], [Description], [ImageUrl], [IsAvailable], [Name], [Price], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([CategoryId], [Description], [ImageUrl], [IsAvailable], [Name], [Price])
+VALUES (i.[CategoryId], i.[Description], i.[ImageUrl], i.[IsAvailable], i.[Name], i.[Price])
+OUTPUT INSERTED.[Id], i._Position;
+2026-07-14 00:24:04.189 +05:30 [INF] Now listening on: https://localhost:7246
+2026-07-14 00:24:04.191 +05:30 [INF] Now listening on: http://localhost:5051
+2026-07-14 00:24:04.304 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-14 00:24:04.306 +05:30 [INF] Hosting environment: Development
+2026-07-14 00:24:04.307 +05:30 [INF] Content root path: C:\Users\hp\source\repos\FastFood\FastFood.API
+2026-07-14 00:25:35.931 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7246/ - null null
+2026-07-14 00:25:36.660 +05:30 [INF] HTTP GET / responded 404 in 247.9268 ms
+2026-07-14 00:25:36.692 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7246/ - 404 null null 782.8106ms
+2026-07-14 00:25:36.712 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7246/, Response status code: 404
+2026-07-14 00:26:02.223 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7246/ - null null
+2026-07-14 00:26:02.245 +05:30 [INF] HTTP GET / responded 404 in 1.8960 ms
+2026-07-14 00:26:02.251 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7246/ - 404 null null 29.3585ms
+2026-07-14 00:26:02.261 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7246/, Response status code: 404
+2026-07-14 00:26:03.087 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7246/ - null null
+2026-07-14 00:26:03.108 +05:30 [INF] HTTP GET / responded 404 in 8.9431 ms
+2026-07-14 00:26:03.113 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7246/ - 404 null null 25.4444ms
+2026-07-14 00:26:03.119 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7246/, Response status code: 404
+2026-07-14 00:26:03.734 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7246/ - null null
+2026-07-14 00:26:03.763 +05:30 [INF] HTTP GET / responded 404 in 0.3368 ms
+2026-07-14 00:26:03.769 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7246/ - 404 null null 35.0812ms
+2026-07-14 00:26:03.778 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7246/, Response status code: 404
+2026-07-14 00:35:37.744 +05:30 [INF] User profile is available. Using 'C:\Users\hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-14 00:35:39.476 +05:30 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-14 00:35:39.502 +05:30 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-07-14 00:35:39.548 +05:30 [INF] Executed DbCommand (37ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-07-14 00:35:39.677 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-07-14 00:35:39.708 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-14 00:35:39.723 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-14 00:35:39.736 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-07-14 00:35:39.757 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-07-14 00:35:39.767 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-07-14 00:35:40.197 +05:30 [INF] Executed DbCommand (21ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:35:40.272 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:35:40.309 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 00:35:40.391 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-14 00:35:40.405 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FoodItems] AS [f]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-14 00:35:40.495 +05:30 [INF] Now listening on: http://localhost:5051
+2026-07-14 00:35:40.498 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-14 00:35:40.499 +05:30 [INF] Hosting environment: Development
+2026-07-14 00:35:40.500 +05:30 [INF] Content root path: C:\Users\hp\source\repos\FastFood\FastFood.API
+2026-07-14 00:36:04.355 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/ - null null
+2026-07-14 00:36:04.398 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-07-14 00:36:04.463 +05:30 [INF] HTTP GET / responded 404 in 65.1195 ms
+2026-07-14 00:36:04.479 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/ - 404 0 null 126.2368ms
+2026-07-14 00:36:04.488 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5051/, Response status code: 404
+2026-07-14 00:36:08.409 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/ - null null
+2026-07-14 00:36:08.419 +05:30 [INF] HTTP GET / responded 404 in 2.6656 ms
+2026-07-14 00:36:08.421 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/ - 404 0 null 11.9472ms
+2026-07-14 00:36:08.427 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5051/, Response status code: 404
+2026-07-14 00:36:47.364 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger - null null
+2026-07-14 00:36:47.403 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger - 301 0 null 38.7027ms
+2026-07-14 00:36:47.407 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:36:47.488 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 200 null text/html;charset=utf-8 81.3477ms
+2026-07-14 00:36:47.497 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:36:47.499 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:36:47.502 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:36:47.502 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:36:47.502 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:36:47.514 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 200 152 text/css 14.7372ms
+2026-07-14 00:36:47.514 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 200 26499 text/css 17.3576ms
+2026-07-14 00:36:47.521 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 200 null application/javascript;charset=utf-8 19.1249ms
+2026-07-14 00:36:47.522 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 200 77731 text/javascript 19.5726ms
+2026-07-14 00:36:47.542 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 200 421507 text/javascript 39.7353ms
+2026-07-14 00:36:47.738 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:36:47.833 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET api/admin/orders" for actions - AdminController.Orders (FastFood.API), FastFood.API.Controllers.AdminOrderController.GetAllOrders (FastFood.API). Actions require a unique method/path combination for Swagger/OpenAPI 2.0 and 3.0. Use ConflictingActionsResolver as a workaround or provide your own implementation of PathGroupSelector.
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
+   at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-07-14 00:36:47.852 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 113.8403ms
+2026-07-14 00:36:59.955 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:36:59.958 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 3.3082ms
+2026-07-14 00:37:00.000 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:37:00.001 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:37:00.001 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:37:00.001 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:37:00.002 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:37:00.004 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 3.7607ms
+2026-07-14 00:37:00.007 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 6.5453ms
+2026-07-14 00:37:00.012 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 10.5695ms
+2026-07-14 00:37:00.016 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 14.0914ms
+2026-07-14 00:37:00.019 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 16.8649ms
+2026-07-14 00:37:00.097 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:37:00.102 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 00:37:00.108 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET api/admin/orders" for actions - AdminController.Orders (FastFood.API), FastFood.API.Controllers.AdminOrderController.GetAllOrders (FastFood.API). Actions require a unique method/path combination for Swagger/OpenAPI 2.0 and 3.0. Use ConflictingActionsResolver as a workaround or provide your own implementation of PathGroupSelector.
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
+   at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-07-14 00:37:00.109 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 200 628 image/png 6.8876ms
+2026-07-14 00:37:00.116 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 18.9542ms
+2026-07-14 00:37:21.431 +05:30 [INF] User profile is available. Using 'C:\Users\hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-14 00:37:23.593 +05:30 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-14 00:37:23.628 +05:30 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-07-14 00:37:23.680 +05:30 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-07-14 00:37:23.809 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-07-14 00:37:23.856 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-14 00:37:23.864 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-14 00:37:23.879 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-07-14 00:37:23.901 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-07-14 00:37:23.911 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-07-14 00:37:24.409 +05:30 [INF] Executed DbCommand (44ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:37:24.509 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:37:24.533 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 00:37:24.614 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-14 00:37:24.627 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FoodItems] AS [f]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-14 00:37:24.983 +05:30 [ERR] Hosting failed to start
+System.IO.IOException: Failed to bind to address http://127.0.0.1:5051: address already in use.
+ ---> Microsoft.AspNetCore.Connections.AddressInUseException: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+ ---> System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, Boolean disconnectOnFailure, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportOptions.CreateDefaultBoundListenSocket(EndPoint endpoint)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory.BindAsync(EndPoint endpoint, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.TransportManager.BindAsync(EndPoint endPoint, ConnectionDelegate connectionDelegate, EndpointConfig endpointConfig, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.<>c__DisplayClass28_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+2026-07-14 00:37:41.626 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:37:41.630 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 3.3497ms
+2026-07-14 00:37:41.640 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:37:41.641 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:37:41.643 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:37:41.643 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:37:41.643 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:37:41.647 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 6.8612ms
+2026-07-14 00:37:41.649 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 7.9255ms
+2026-07-14 00:37:41.652 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 9.2499ms
+2026-07-14 00:37:41.654 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 11.5873ms
+2026-07-14 00:37:41.657 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 14.0721ms
+2026-07-14 00:37:41.716 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:37:41.719 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 00:37:41.723 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 3.5955ms
+2026-07-14 00:37:41.724 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET api/admin/orders" for actions - AdminController.Orders (FastFood.API), FastFood.API.Controllers.AdminOrderController.GetAllOrders (FastFood.API). Actions require a unique method/path combination for Swagger/OpenAPI 2.0 and 3.0. Use ConflictingActionsResolver as a workaround or provide your own implementation of PathGroupSelector.
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
+   at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-07-14 00:37:41.731 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 15.7864ms
+2026-07-14 00:37:42.609 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:37:42.612 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 3.7504ms
+2026-07-14 00:37:42.622 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:37:42.623 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:37:42.623 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:37:42.624 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:37:42.624 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:37:42.626 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 3.6806ms
+2026-07-14 00:37:42.629 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 6.3607ms
+2026-07-14 00:37:42.632 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 9.1655ms
+2026-07-14 00:37:42.635 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 11.1311ms
+2026-07-14 00:37:42.638 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 13.7872ms
+2026-07-14 00:37:42.678 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:37:42.680 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 00:37:42.684 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 4.6567ms
+2026-07-14 00:37:42.685 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET api/admin/orders" for actions - AdminController.Orders (FastFood.API), FastFood.API.Controllers.AdminOrderController.GetAllOrders (FastFood.API). Actions require a unique method/path combination for Swagger/OpenAPI 2.0 and 3.0. Use ConflictingActionsResolver as a workaround or provide your own implementation of PathGroupSelector.
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
+   at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-07-14 00:37:42.692 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 14.1583ms
+2026-07-14 00:38:09.382 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:38:09.386 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 4.6039ms
+2026-07-14 00:38:09.394 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:38:09.395 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:38:09.395 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:38:09.396 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:38:09.397 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:38:09.400 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 5.396ms
+2026-07-14 00:38:09.403 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 7.9784ms
+2026-07-14 00:38:09.406 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 10.9255ms
+2026-07-14 00:38:09.409 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 12.4079ms
+2026-07-14 00:38:09.412 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 14.834ms
+2026-07-14 00:38:09.449 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:38:09.453 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 00:38:09.455 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET api/admin/orders" for actions - AdminController.Orders (FastFood.API), FastFood.API.Controllers.AdminOrderController.GetAllOrders (FastFood.API). Actions require a unique method/path combination for Swagger/OpenAPI 2.0 and 3.0. Use ConflictingActionsResolver as a workaround or provide your own implementation of PathGroupSelector.
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
+   at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-07-14 00:38:09.456 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 3.3381ms
+2026-07-14 00:38:09.461 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 11.5406ms
+2026-07-14 00:39:03.860 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:39:03.862 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 2.5666ms
+2026-07-14 00:39:03.873 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:39:03.875 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:39:03.877 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 4.1845ms
+2026-07-14 00:39:03.878 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:39:03.878 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:39:03.878 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:39:03.880 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 5.715ms
+2026-07-14 00:39:03.889 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 11.5207ms
+2026-07-14 00:39:03.892 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 14.5624ms
+2026-07-14 00:39:03.895 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 16.9152ms
+2026-07-14 00:39:03.940 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:39:03.944 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 00:39:03.947 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET api/admin/orders" for actions - AdminController.Orders (FastFood.API), FastFood.API.Controllers.AdminOrderController.GetAllOrders (FastFood.API). Actions require a unique method/path combination for Swagger/OpenAPI 2.0 and 3.0. Use ConflictingActionsResolver as a workaround or provide your own implementation of PathGroupSelector.
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
+   at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-07-14 00:39:03.947 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 3.2883ms
+2026-07-14 00:39:03.953 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 13.0146ms
+2026-07-14 00:39:04.713 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:39:04.716 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 3.3087ms
+2026-07-14 00:39:04.725 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:39:04.725 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:39:04.726 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:39:04.726 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:39:04.726 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:39:04.728 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 3.2997ms
+2026-07-14 00:39:04.731 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 5.7046ms
+2026-07-14 00:39:04.734 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 8.5223ms
+2026-07-14 00:39:04.737 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 11.2464ms
+2026-07-14 00:39:04.740 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 13.6558ms
+2026-07-14 00:39:04.779 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:39:04.781 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 00:39:04.785 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 4.6626ms
+2026-07-14 00:39:04.786 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET api/admin/orders" for actions - AdminController.Orders (FastFood.API), FastFood.API.Controllers.AdminOrderController.GetAllOrders (FastFood.API). Actions require a unique method/path combination for Swagger/OpenAPI 2.0 and 3.0. Use ConflictingActionsResolver as a workaround or provide your own implementation of PathGroupSelector.
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
+   at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-07-14 00:39:04.793 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 14.4776ms
+2026-07-14 00:56:29.793 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:56:29.797 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 3.7333ms
+2026-07-14 00:56:29.808 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:56:29.808 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:56:29.811 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:56:29.812 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:56:29.812 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 3.9561ms
+2026-07-14 00:56:29.812 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:56:29.815 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 6.3012ms
+2026-07-14 00:56:29.818 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 7.0166ms
+2026-07-14 00:56:29.821 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 9.3726ms
+2026-07-14 00:56:29.827 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 15.0169ms
+2026-07-14 00:56:29.922 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:56:29.927 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 00:56:29.929 +05:30 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET api/admin/orders" for actions - AdminController.Orders (FastFood.API), FastFood.API.Controllers.AdminOrderController.GetAllOrders (FastFood.API). Actions require a unique method/path combination for Swagger/OpenAPI 2.0 and 3.0. Use ConflictingActionsResolver as a workaround or provide your own implementation of PathGroupSelector.
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.PrepareGenerateOperation(IGrouping`2 group)
+   at System.Linq.Enumerable.IteratorSelectIterator`2.MoveNext()
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperationsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository, Func`4 operationsGenerator)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePathsAsync(OpenApiDocument document, IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-07-14 00:56:29.930 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 3.1606ms
+2026-07-14 00:56:29.935 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 12.9622ms
+2026-07-14 00:56:36.913 +05:30 [INF] Application is shutting down...
+2026-07-14 00:57:02.006 +05:30 [INF] User profile is available. Using 'C:\Users\hp\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-14 00:57:03.487 +05:30 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-14 00:57:03.515 +05:30 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-07-14 00:57:03.557 +05:30 [INF] Executed DbCommand (35ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-07-14 00:57:03.669 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-07-14 00:57:03.713 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-14 00:57:03.720 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-14 00:57:03.732 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-07-14 00:57:03.752 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-07-14 00:57:03.762 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-07-14 00:57:04.183 +05:30 [INF] Executed DbCommand (18ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:57:04.265 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 00:57:04.289 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 00:57:04.398 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Categories] AS [c]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-14 00:57:04.413 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [FoodItems] AS [f]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-14 00:57:04.506 +05:30 [INF] Now listening on: http://localhost:5051
+2026-07-14 00:57:04.510 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-14 00:57:04.512 +05:30 [INF] Hosting environment: Development
+2026-07-14 00:57:04.513 +05:30 [INF] Content root path: C:\Users\hp\source\repos\FastFood\FastFood.API
+2026-07-14 00:57:11.029 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:57:11.130 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 102.0706ms
+2026-07-14 00:57:11.140 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:57:11.140 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:57:11.140 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:57:11.142 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:57:11.143 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:57:11.160 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 20.1022ms
+2026-07-14 00:57:11.160 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 19.3139ms
+2026-07-14 00:57:11.160 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 17.5605ms
+2026-07-14 00:57:11.160 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 17.4348ms
+2026-07-14 00:57:11.165 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 25.4357ms
+2026-07-14 00:57:11.217 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:57:11.220 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 00:57:11.225 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 5.7887ms
+2026-07-14 00:57:11.393 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 175.8099ms
+2026-07-14 00:58:56.811 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 00:58:56.815 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 3.659ms
+2026-07-14 00:58:56.825 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 00:58:56.825 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 00:58:56.827 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 00:58:56.827 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 00:58:56.828 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 00:58:56.830 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 5.1762ms
+2026-07-14 00:58:56.833 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 8.1101ms
+2026-07-14 00:58:56.837 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 9.8018ms
+2026-07-14 00:58:56.841 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 13.8908ms
+2026-07-14 00:58:56.844 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 16.1911ms
+2026-07-14 00:58:56.914 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 00:58:56.917 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 00:58:56.921 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 3.625ms
+2026-07-14 00:58:56.939 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 24.7265ms
+2026-07-14 01:00:05.134 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/api/admin/users - null null
+2026-07-14 01:00:05.153 +05:30 [WRN] Failed to determine the https port for redirect.
+2026-07-14 01:00:05.226 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-07-14 01:00:05.232 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-07-14 01:00:05.236 +05:30 [INF] HTTP GET /api/admin/users responded 401 in 94.6400 ms
+2026-07-14 01:00:05.239 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/api/admin/users - 401 0 null 104.4981ms
+2026-07-14 01:00:47.706 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5051/api/Auth/register - application/json 85
+2026-07-14 01:00:47.720 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.AuthController.Register (FastFood.API)'
+2026-07-14 01:00:47.750 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(FastFood.Core.DTOs.Auth.RegisterDto) on controller FastFood.API.Controllers.AuthController (FastFood.API).
+2026-07-14 01:00:47.873 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 01:00:47.890 +05:30 [INF] Executing BadRequestObjectResult, writing value of type 'FastFood.Core.DTOs.Auth.AuthResponseDto'.
+2026-07-14 01:00:47.906 +05:30 [INF] Executed action FastFood.API.Controllers.AuthController.Register (FastFood.API) in 149.7213ms
+2026-07-14 01:00:47.908 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.AuthController.Register (FastFood.API)'
+2026-07-14 01:00:47.912 +05:30 [INF] HTTP POST /api/Auth/register responded 400 in 203.3850 ms
+2026-07-14 01:00:47.920 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5051/api/Auth/register - 400 null application/json; charset=utf-8 213.8757ms
+2026-07-14 01:01:24.461 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5051/api/Auth/register - application/json 84
+2026-07-14 01:01:24.467 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.AuthController.Register (FastFood.API)'
+2026-07-14 01:01:24.478 +05:30 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(FastFood.Core.DTOs.Auth.RegisterDto) on controller FastFood.API.Controllers.AuthController (FastFood.API).
+2026-07-14 01:01:24.569 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 01:01:24.658 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedUserName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @normalizedUserName
+2026-07-14 01:01:24.882 +05:30 [INF] Executed DbCommand (81ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (DbType = DateTime2), @p5='?' (Size = 256), @p6='?' (DbType = Boolean), @p7='?' (Size = 4000), @p8='?' (DbType = Boolean), @p9='?' (DbType = DateTimeOffset), @p10='?' (Size = 256), @p11='?' (Size = 256), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (DbType = Boolean), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (DbType = Boolean), @p18='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AspNetUsers] ([Id], [AccessFailedCount], [Address], [ConcurrencyStamp], [CreatedAt], [Email], [EmailConfirmed], [FullName], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [ProfileImage], [SecurityStamp], [TwoFactorEnabled], [UserName])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18);
+2026-07-14 01:01:24.900 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 01:01:24.908 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@normalizedName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedName
+2026-07-14 01:01:24.932 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 4000), @p2='?' (Size = 256), @p3='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [AspNetRoles] ([Id], [ConcurrencyStamp], [Name], [NormalizedName])
+VALUES (@p0, @p1, @p2, @p3);
+2026-07-14 01:01:24.950 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@normalizedRoleName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedRoleName
+2026-07-14 01:01:24.998 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@p='?' (Size = 450), @p1='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[UserId], [a].[RoleId]
+FROM [AspNetUserRoles] AS [a]
+WHERE [a].[UserId] = @p AND [a].[RoleId] = @p1
+2026-07-14 01:01:25.006 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@normalizedRoleName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @normalizedRoleName
+2026-07-14 01:01:25.027 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@normalizedUserName='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @normalizedUserName
+2026-07-14 01:01:25.059 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (Size = 450), @p20='?' (Size = 450), @p2='?' (DbType = Int32), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p21='?' (Size = 4000), @p5='?' (DbType = DateTime2), @p6='?' (Size = 256), @p7='?' (DbType = Boolean), @p8='?' (Size = 4000), @p9='?' (DbType = Boolean), @p10='?' (DbType = DateTimeOffset), @p11='?' (Size = 256), @p12='?' (Size = 256), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (DbType = Boolean), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (DbType = Boolean), @p19='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AspNetUserRoles] ([RoleId], [UserId])
+VALUES (@p0, @p1);
+UPDATE [AspNetUsers] SET [AccessFailedCount] = @p2, [Address] = @p3, [ConcurrencyStamp] = @p4, [CreatedAt] = @p5, [Email] = @p6, [EmailConfirmed] = @p7, [FullName] = @p8, [LockoutEnabled] = @p9, [LockoutEnd] = @p10, [NormalizedEmail] = @p11, [NormalizedUserName] = @p12, [PasswordHash] = @p13, [PhoneNumber] = @p14, [PhoneNumberConfirmed] = @p15, [ProfileImage] = @p16, [SecurityStamp] = @p17, [TwoFactorEnabled] = @p18, [UserName] = @p19
+OUTPUT 1
+WHERE [Id] = @p20 AND [ConcurrencyStamp] = @p21;
+2026-07-14 01:01:25.140 +05:30 [INF] Executed DbCommand (21ms) [Parameters=[@userId='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @userId
+2026-07-14 01:01:25.171 +05:30 [INF] Executing OkObjectResult, writing value of type 'FastFood.Core.DTOs.Auth.AuthResponseDto'.
+2026-07-14 01:01:25.173 +05:30 [INF] Executed action FastFood.API.Controllers.AuthController.Register (FastFood.API) in 689.121ms
+2026-07-14 01:01:25.175 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.AuthController.Register (FastFood.API)'
+2026-07-14 01:01:25.176 +05:30 [INF] HTTP POST /api/Auth/register responded 200 in 711.5188 ms
+2026-07-14 01:01:25.179 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5051/api/Auth/register - 200 null application/json; charset=utf-8 718.0128ms
+2026-07-14 01:01:49.309 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5051/api/Auth/login - application/json 62
+2026-07-14 01:01:49.315 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:01:49.357 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(FastFood.Core.DTOs.Auth.LoginDto) on controller FastFood.API.Controllers.AuthController (FastFood.API).
+2026-07-14 01:01:49.386 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 01:01:49.460 +05:30 [INF] Executing UnauthorizedObjectResult, writing value of type 'FastFood.Core.DTOs.Auth.AuthResponseDto'.
+2026-07-14 01:01:49.462 +05:30 [INF] Executed action FastFood.API.Controllers.AuthController.Login (FastFood.API) in 103.0612ms
+2026-07-14 01:01:49.465 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:01:49.466 +05:30 [INF] HTTP POST /api/Auth/login responded 401 in 151.5156 ms
+2026-07-14 01:01:49.468 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5051/api/Auth/login - 401 null application/json; charset=utf-8 158.5579ms
+2026-07-14 01:02:09.336 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5051/api/Auth/login - application/json 60
+2026-07-14 01:02:09.339 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:02:09.341 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(FastFood.Core.DTOs.Auth.LoginDto) on controller FastFood.API.Controllers.AuthController (FastFood.API).
+2026-07-14 01:02:09.359 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 01:02:09.446 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@userId='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @userId
+2026-07-14 01:02:09.451 +05:30 [INF] Executing OkObjectResult, writing value of type 'FastFood.Core.DTOs.Auth.AuthResponseDto'.
+2026-07-14 01:02:09.453 +05:30 [INF] Executed action FastFood.API.Controllers.AuthController.Login (FastFood.API) in 109.9582ms
+2026-07-14 01:02:09.455 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:02:09.456 +05:30 [INF] HTTP POST /api/Auth/login responded 200 in 116.9682 ms
+2026-07-14 01:02:09.458 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5051/api/Auth/login - 200 null application/json; charset=utf-8 122.6421ms
+2026-07-14 01:02:21.223 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/api/admin/users - null null
+2026-07-14 01:02:21.231 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-07-14 01:02:21.232 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-07-14 01:02:21.234 +05:30 [INF] HTTP GET /api/admin/users responded 401 in 7.8213 ms
+2026-07-14 01:02:21.236 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/api/admin/users - 401 0 null 13.6315ms
+2026-07-14 01:03:45.339 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 01:03:45.342 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 3.4633ms
+2026-07-14 01:03:45.354 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 01:03:45.358 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 3.4771ms
+2026-07-14 01:03:45.389 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 01:03:45.392 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 01:03:45.393 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 01:03:45.393 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 01:03:45.394 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 4.711ms
+2026-07-14 01:03:45.397 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 5.0274ms
+2026-07-14 01:03:45.401 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 8.344ms
+2026-07-14 01:03:45.404 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 10.8403ms
+2026-07-14 01:03:45.478 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 01:03:45.483 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 01:03:45.487 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 4.4132ms
+2026-07-14 01:03:45.503 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 24.9906ms
+2026-07-14 01:14:11.917 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5051/api/v1/Auth/register - null null
+2026-07-14 01:14:11.923 +05:30 [INF] HTTP OPTIONS /api/v1/Auth/register responded 404 in 0.9490 ms
+2026-07-14 01:14:11.926 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5051/api/v1/Auth/register - 404 0 null 9.3985ms
+2026-07-14 01:14:11.931 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: OPTIONS http://localhost:5051/api/v1/Auth/register, Response status code: 404
+2026-07-14 01:23:21.472 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/api/Category - null null
+2026-07-14 01:23:21.475 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.CategoryController.GetAll (FastFood.API)'
+2026-07-14 01:23:21.485 +05:30 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller FastFood.API.Controllers.CategoryController (FastFood.API).
+2026-07-14 01:23:21.538 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[Description], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2026-07-14 01:23:21.558 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[FastFood.Core.Entities.Category, FastFood.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[FastFood.Core.DTOs.Category.CategoryDto, FastFood.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 01:23:21.565 +05:30 [INF] Executed action FastFood.API.Controllers.CategoryController.GetAll (FastFood.API) in 77.8142ms
+2026-07-14 01:23:21.567 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.CategoryController.GetAll (FastFood.API)'
+2026-07-14 01:23:21.568 +05:30 [INF] HTTP GET /api/Category responded 200 in 93.0301 ms
+2026-07-14 01:23:21.570 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/api/Category - 200 null application/json; charset=utf-8 98.5286ms
+2026-07-14 01:24:39.447 +05:30 [INF] Request starting HTTP/1.1 PUT http://localhost:5051/api/Category/1 - application/json 79
+2026-07-14 01:24:39.497 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (User)
+2026-07-14 01:24:39.498 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-07-14 01:24:39.500 +05:30 [INF] HTTP PUT /api/Category/1 responded 401 in 38.6127 ms
+2026-07-14 01:24:39.502 +05:30 [INF] Request finished HTTP/1.1 PUT http://localhost:5051/api/Category/1 - 401 0 null 54.6129ms
+2026-07-14 01:24:49.870 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/api/Category - null null
+2026-07-14 01:24:49.873 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.CategoryController.GetAll (FastFood.API)'
+2026-07-14 01:24:49.886 +05:30 [INF] Route matched with {action = "GetAll", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller FastFood.API.Controllers.CategoryController (FastFood.API).
+2026-07-14 01:24:49.893 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[Description], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+2026-07-14 01:24:49.897 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[FastFood.Core.Entities.Category, FastFood.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[FastFood.Core.DTOs.Category.CategoryDto, FastFood.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-14 01:24:49.899 +05:30 [INF] Executed action FastFood.API.Controllers.CategoryController.GetAll (FastFood.API) in 10.9345ms
+2026-07-14 01:24:49.901 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.CategoryController.GetAll (FastFood.API)'
+2026-07-14 01:24:49.902 +05:30 [INF] HTTP GET /api/Category responded 200 in 29.0154 ms
+2026-07-14 01:24:49.904 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/api/Category - 200 null application/json; charset=utf-8 33.8845ms
+2026-07-14 01:25:04.893 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/api/Category/1 - null null
+2026-07-14 01:25:04.896 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.CategoryController.Get (FastFood.API)'
+2026-07-14 01:25:04.905 +05:30 [INF] Route matched with {action = "Get", controller = "Category"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(Int32) on controller FastFood.API.Controllers.CategoryController (FastFood.API).
+2026-07-14 01:25:04.925 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Description], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @p
+2026-07-14 01:25:04.928 +05:30 [INF] Executing OkObjectResult, writing value of type 'FastFood.Core.DTOs.Category.CategoryDto'.
+2026-07-14 01:25:04.930 +05:30 [INF] Executed action FastFood.API.Controllers.CategoryController.Get (FastFood.API) in 23.2348ms
+2026-07-14 01:25:04.932 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.CategoryController.Get (FastFood.API)'
+2026-07-14 01:25:04.933 +05:30 [INF] HTTP GET /api/Category/1 responded 200 in 36.8138 ms
+2026-07-14 01:25:04.935 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/api/Category/1 - 200 null application/json; charset=utf-8 41.9685ms
+2026-07-14 01:25:20.135 +05:30 [INF] Request starting HTTP/1.1 PUT http://localhost:5051/api/Category/1 - application/json 79
+2026-07-14 01:25:20.138 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (User)
+2026-07-14 01:25:20.139 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-07-14 01:25:20.140 +05:30 [INF] HTTP PUT /api/Category/1 responded 401 in 2.4828 ms
+2026-07-14 01:25:20.144 +05:30 [INF] Request finished HTTP/1.1 PUT http://localhost:5051/api/Category/1 - 401 0 null 9.2495ms
+2026-07-14 01:26:42.799 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5051/api/v1/FoodItems - multipart/form-data; boundary=----WebKitFormBoundaryL116icWKgIBRXtz5 120332
+2026-07-14 01:26:42.841 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-07-14 01:26:42.842 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-07-14 01:26:42.844 +05:30 [INF] HTTP POST /api/v1/FoodItems responded 401 in 40.9652 ms
+2026-07-14 01:26:42.847 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5051/api/v1/FoodItems - 401 0 null 48.0092ms
+2026-07-14 01:29:54.062 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5051/api/Auth/login - application/json 65
+2026-07-14 01:29:54.066 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:29:54.067 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(FastFood.Core.DTOs.Auth.LoginDto) on controller FastFood.API.Controllers.AuthController (FastFood.API).
+2026-07-14 01:29:54.077 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 01:29:54.149 +05:30 [INF] Executing UnauthorizedObjectResult, writing value of type 'FastFood.Core.DTOs.Auth.AuthResponseDto'.
+2026-07-14 01:29:54.151 +05:30 [INF] Executed action FastFood.API.Controllers.AuthController.Login (FastFood.API) in 80.6481ms
+2026-07-14 01:29:54.154 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:29:54.155 +05:30 [INF] HTTP POST /api/Auth/login responded 401 in 89.8472 ms
+2026-07-14 01:29:54.157 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5051/api/Auth/login - 401 null application/json; charset=utf-8 95.1222ms
+2026-07-14 01:30:26.641 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5051/api/Auth/login - application/json 60
+2026-07-14 01:30:26.645 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:30:26.656 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(FastFood.Core.DTOs.Auth.LoginDto) on controller FastFood.API.Controllers.AuthController (FastFood.API).
+2026-07-14 01:30:26.711 +05:30 [INF] Executed DbCommand (50ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 01:30:26.785 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@userId='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @userId
+2026-07-14 01:30:26.788 +05:30 [INF] Executing OkObjectResult, writing value of type 'FastFood.Core.DTOs.Auth.AuthResponseDto'.
+2026-07-14 01:30:26.790 +05:30 [INF] Executed action FastFood.API.Controllers.AuthController.Login (FastFood.API) in 131.4738ms
+2026-07-14 01:30:26.792 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:30:26.793 +05:30 [INF] HTTP POST /api/Auth/login responded 200 in 148.2078 ms
+2026-07-14 01:30:26.795 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5051/api/Auth/login - 200 null application/json; charset=utf-8 154.4886ms
+2026-07-14 01:30:27.488 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5051/api/Auth/login - application/json 60
+2026-07-14 01:30:27.491 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:30:27.493 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(FastFood.Core.DTOs.Auth.LoginDto) on controller FastFood.API.Controllers.AuthController (FastFood.API).
+2026-07-14 01:30:27.498 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@normalizedEmail='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[Email], [a].[EmailConfirmed], [a].[FullName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfileImage], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @normalizedEmail
+2026-07-14 01:30:27.594 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@userId='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @userId
+2026-07-14 01:30:27.598 +05:30 [INF] Executing OkObjectResult, writing value of type 'FastFood.Core.DTOs.Auth.AuthResponseDto'.
+2026-07-14 01:30:27.600 +05:30 [INF] Executed action FastFood.API.Controllers.AuthController.Login (FastFood.API) in 105.2236ms
+2026-07-14 01:30:27.602 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.AuthController.Login (FastFood.API)'
+2026-07-14 01:30:27.603 +05:30 [INF] HTTP POST /api/Auth/login responded 200 in 112.1254 ms
+2026-07-14 01:30:27.606 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5051/api/Auth/login - 200 null application/json; charset=utf-8 117.5159ms
+2026-07-14 01:31:49.892 +05:30 [INF] Request starting HTTP/1.1 PUT http://localhost:5051/api/Category/1 - application/json 85
+2026-07-14 01:31:49.896 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (User)
+2026-07-14 01:31:49.899 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-07-14 01:31:49.900 +05:30 [INF] HTTP PUT /api/Category/1 responded 401 in 4.7751 ms
+2026-07-14 01:31:49.903 +05:30 [INF] Request finished HTTP/1.1 PUT http://localhost:5051/api/Category/1 - 401 0 null 11.0313ms
+2026-07-14 01:32:00.734 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.html - null null
+2026-07-14 01:32:00.737 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.html - 304 null null 3.5932ms
+2026-07-14 01:32:00.749 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - null null
+2026-07-14 01:32:00.750 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.css - null null
+2026-07-14 01:32:00.752 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - null null
+2026-07-14 01:32:00.753 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-14 01:32:00.754 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/index.js - null null
+2026-07-14 01:32:00.754 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui.css - 304 null null 4.9972ms
+2026-07-14 01:32:00.757 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.css - 304 null null 7.8119ms
+2026-07-14 01:32:00.760 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-bundle.js - 304 null null 8.5392ms
+2026-07-14 01:32:00.763 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/swagger-ui-standalone-preset.js - 304 null null 10.1802ms
+2026-07-14 01:32:00.766 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/index.js - 304 null null 12.4318ms
+2026-07-14 01:32:00.823 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - null null
+2026-07-14 01:32:00.827 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - null null
+2026-07-14 01:32:00.831 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/favicon-32x32.png - 304 null null 4.0682ms
+2026-07-14 01:32:00.838 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 15.466ms
+2026-07-14 01:32:14.279 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/api/admin/users - null null
+2026-07-14 01:32:14.283 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-07-14 01:32:14.285 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-07-14 01:32:14.287 +05:30 [INF] HTTP GET /api/admin/users responded 401 in 3.8811 ms
+2026-07-14 01:32:14.289 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/api/admin/users - 401 0 null 10.1269ms
+2026-07-14 01:32:55.517 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5051/api/v1/Uploads - multipart/form-data; boundary=----WebKitFormBoundaryPX5UyV3DDgb2rnUZ 119842
+2026-07-14 01:32:55.531 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-07-14 01:32:55.533 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-07-14 01:32:55.535 +05:30 [INF] HTTP POST /api/v1/Uploads responded 401 in 14.4673 ms
+2026-07-14 01:32:55.538 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5051/api/v1/Uploads - 401 0 null 20.6861ms
+2026-07-14 01:35:37.434 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/api/v1/FoodItems - null null
+2026-07-14 01:35:37.438 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.FoodItemsController.GetAll (FastFood.API)'
+2026-07-14 01:35:37.455 +05:30 [INF] Route matched with {action = "GetAll", controller = "FoodItems"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll(FastFood.Core.DTOs.Common.FoodQueryParameters) on controller FastFood.API.Controllers.FoodItemsController (FastFood.API).
+2026-07-14 01:35:37.593 +05:30 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-07-14 01:35:37.623 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[CategoryId], [f].[Description], [f].[ImageUrl], [f].[IsAvailable], [f].[Name], [f].[Price]
+FROM [FoodItems] AS [f]
+2026-07-14 01:35:37.646 +05:30 [INF] Executed action FastFood.API.Controllers.FoodItemsController.GetAll (FastFood.API) in 187.6673ms
+2026-07-14 01:35:37.648 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.FoodItemsController.GetAll (FastFood.API)'
+2026-07-14 01:35:37.650 +05:30 [ERR] Nullable object must have a value.
+System.InvalidOperationException: Nullable object must have a value.
+   at System.Nullable`1.get_Value()
+   at FastFood.Infrastructure.Services.FoodItemService.GetAllAsync(FoodQueryParameters query) in C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\Services\FoodItemService.cs:line 44
+   at FastFood.API.Controllers.FoodItemsController.GetAll(FoodQueryParameters query) in C:\Users\hp\source\repos\FastFood\FastFood.API\Controllers\FoodItemController.cs:line 30
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at FastFood.API.Middleware.ExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\hp\source\repos\FastFood\FastFood.API\Middlewares\ExceptionMiddleware.cs:line 23
+2026-07-14 01:35:37.692 +05:30 [ERR] HTTP GET /api/v1/FoodItems responded 500 in 254.3683 ms
+2026-07-14 01:35:37.694 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/api/v1/FoodItems - 500 null application/json 259.8876ms
+2026-07-14 01:35:37.728 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/favicon.ico - null null
+2026-07-14 01:35:37.736 +05:30 [INF] HTTP GET /favicon.ico responded 404 in 2.5962 ms
+2026-07-14 01:35:37.739 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/favicon.ico - 404 0 null 10.4948ms
+2026-07-14 01:35:37.743 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5051/favicon.ico, Response status code: 404
+2026-07-14 01:40:54.134 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5051/api/v1/FoodItems - null null
+2026-07-14 01:40:54.137 +05:30 [INF] Executing endpoint 'FastFood.API.Controllers.FoodItemsController.GetAll (FastFood.API)'
+2026-07-14 01:40:54.139 +05:30 [INF] Route matched with {action = "GetAll", controller = "FoodItems"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll(FastFood.Core.DTOs.Common.FoodQueryParameters) on controller FastFood.API.Controllers.FoodItemsController (FastFood.API).
+2026-07-14 01:40:54.148 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[Id], [f].[CategoryId], [f].[Description], [f].[ImageUrl], [f].[IsAvailable], [f].[Name], [f].[Price]
+FROM [FoodItems] AS [f]
+2026-07-14 01:40:54.151 +05:30 [INF] Executed action FastFood.API.Controllers.FoodItemsController.GetAll (FastFood.API) in 10.2257ms
+2026-07-14 01:40:54.153 +05:30 [INF] Executed endpoint 'FastFood.API.Controllers.FoodItemsController.GetAll (FastFood.API)'
+2026-07-14 01:40:54.154 +05:30 [ERR] Nullable object must have a value.
+System.InvalidOperationException: Nullable object must have a value.
+   at System.Nullable`1.get_Value()
+   at FastFood.Infrastructure.Services.FoodItemService.GetAllAsync(FoodQueryParameters query) in C:\Users\hp\source\repos\FastFood\FastFood.Infrastructure\Services\FoodItemService.cs:line 44
+   at FastFood.API.Controllers.FoodItemsController.GetAll(FoodQueryParameters query) in C:\Users\hp\source\repos\FastFood\FastFood.API\Controllers\FoodItemController.cs:line 30
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at FastFood.API.Middleware.ExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\hp\source\repos\FastFood\FastFood.API\Middlewares\ExceptionMiddleware.cs:line 23
+2026-07-14 01:40:54.160 +05:30 [ERR] HTTP GET /api/v1/FoodItems responded 500 in 22.9783 ms
+2026-07-14 01:40:54.163 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5051/api/v1/FoodItems - 500 null application/json 28.645ms
+2026-07-14 01:44:09.654 +05:30 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5051/api/v1/Auth/login - null null
+2026-07-14 01:44:09.657 +05:30 [INF] HTTP OPTIONS /api/v1/Auth/login responded 404 in 0.1231 ms
+2026-07-14 01:44:09.659 +05:30 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5051/api/v1/Auth/login - 404 0 null 5.0545ms
+2026-07-14 01:44:09.663 +05:30 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: OPTIONS http://localhost:5051/api/v1/Auth/login, Response status code: 404
+2026-07-14 02:52:40.930 +05:30 [INF] Application is shutting down...

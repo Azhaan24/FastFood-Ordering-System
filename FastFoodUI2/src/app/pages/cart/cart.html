@@ -1,0 +1,149 @@
+<div class="container">
+
+<h2 class="mb-4">
+
+Shopping Cart
+
+</h2>
+
+<div
+
+class="alert alert-info"
+
+*ngIf="cart?.items?.length==0">
+
+Your cart is empty.
+
+</div>
+
+<div
+
+class="card shadow mb-3"
+
+*ngFor="let item of cart?.items">
+
+<div class="card-body">
+
+<div class="row align-items-center">
+
+<div class="col-md-2">
+
+<img
+
+class="img-fluid rounded"
+
+[src]="item.imageUrl">
+
+</div>
+
+<div class="col-md-3">
+
+<h5>
+
+{{item.foodName}}
+
+</h5>
+
+</div>
+
+<div class="col-md-2">
+
+₹ {{item.price}}
+
+</div>
+
+<div class="col-md-3">
+
+<div class="btn-group">
+
+<button
+
+class="btn btn-secondary"
+
+(click)="decrease(item)">
+
+-
+
+</button>
+
+<button
+
+class="btn btn-light">
+
+{{item.quantity}}
+
+</button>
+
+<button
+
+class="btn btn-secondary"
+
+(click)="increase(item)">
+
++
+
+</button>
+
+</div>
+
+</div>
+
+<div class="col-md-2 text-end">
+
+<button
+
+class="btn btn-danger"
+
+(click)="remove(item)">
+
+Remove
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+
+class="card"
+
+*ngIf="cart?.items?.length">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+<h3>
+
+Grand Total
+
+</h3>
+
+<h3>
+
+₹ {{cart?.grandTotal}}
+
+</h3>
+
+</div>
+
+<button
+
+class="btn btn-success w-100 mt-3"
+
+(click)="checkout()">
+
+Proceed To Checkout
+
+</button>
+
+</div>
+
+</div>
+
+</div>

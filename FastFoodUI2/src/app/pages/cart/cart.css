@@ -1,0 +1,19 @@
+img{
+
+height:100px;
+
+object-fit:cover;
+
+}
+
+.card{
+
+border-radius:12px;
+
+}
+
+.btn-group button{
+
+width:40px;
+
+}

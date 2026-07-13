@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="FastFood.API/FastFood.API.csproj" />
+  <Project Path="FastFood.Core/FastFood.Core.csproj" />
+  <Project Path="FastFood.Infrastructure/FastFood.Infrastructure.csproj" />
+</Solution>

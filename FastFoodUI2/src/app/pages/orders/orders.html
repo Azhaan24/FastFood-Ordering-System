@@ -1,0 +1,79 @@
+<div class="container">
+
+<h2 class="mb-4">
+
+My Orders
+
+</h2>
+
+<div
+
+class="card shadow mb-3"
+
+*ngFor="let order of orders">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<h5>
+
+Order #{{order.id}}
+
+</h5>
+
+<p>
+
+{{order.orderDate | date:'medium'}}
+
+</p>
+
+<p>
+
+{{order.deliveryAddress}}
+
+</p>
+
+</div>
+
+<div class="text-end">
+
+<h4>
+
+₹ {{order.totalAmount}}
+
+</h4>
+
+<span
+
+class="badge bg-primary">
+
+{{order.status}}
+
+</span>
+
+<br><br>
+
+<button
+
+*ngIf="order.status=='Pending'"
+
+class="btn btn-danger btn-sm"
+
+(click)="cancel(order)">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>

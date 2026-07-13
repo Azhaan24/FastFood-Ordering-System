@@ -1,0 +1,18 @@
+services:
+  fastfood-api:
+    build:
+      context: .
+      dockerfile: FastFood.API/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Password@123"
+    ports:
+      - "1433:1433"
+  
