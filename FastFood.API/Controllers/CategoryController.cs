@@ -1,4 +1,5 @@
-﻿using FastFood.Core.DTOs.Category;
+﻿using Asp.Versioning;
+using FastFood.Core.DTOs.Category;
 using FastFood.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,8 +7,9 @@ using Microsoft.AspNetCore.OutputCaching;
 
 namespace FastFood.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

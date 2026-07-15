@@ -1,4 +1,5 @@
-﻿using FastFood.Core.Interfaces;
+﻿using Asp.Versioning;
+using FastFood.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,8 @@ namespace FastFood.API.Controllers;
 
 [Authorize(Roles = "Admin")]
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class DashboardController : ControllerBase
 {
     private readonly IDashboardService _dashboardService;

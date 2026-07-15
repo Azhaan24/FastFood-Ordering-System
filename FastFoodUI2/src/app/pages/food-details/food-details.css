@@ -1,17 +1,53 @@
+.container{
+
+    margin-top:40px;
+
+}
+
 img{
 
-width:100%;
+    border-radius:12px;
 
-height:420px;
+    object-fit:cover;
 
-object-fit:cover;
-
-border-radius:12px;
+    max-height:450px;
 
 }
 
 h2{
 
-font-weight:700;
+    font-weight:700;
+
+}
+
+.text-success{
+
+    font-size:30px;
+
+    font-weight:600;
+
+}
+
+.badge{
+
+    font-size:15px;
+
+    padding:8px 12px;
+
+}
+
+.btn{
+
+    min-width:180px;
+
+    border-radius:8px;
+
+}
+
+.spinner-border{
+
+    width:3rem;
+
+    height:3rem;
 
 }

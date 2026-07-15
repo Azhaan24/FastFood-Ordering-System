@@ -1,79 +1,180 @@
-<hr>
+<div class="container mt-5">
 
-<h4>
+    <div *ngIf="loading" class="text-center py-5">
 
-Reviews
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
 
-</h4>
+        <p class="mt-3">Loading food details...</p>
 
-<select
+    </div>
 
-class="form-select mb-3"
+    <div *ngIf="!loading && food">
 
-[(ngModel)]="rating">
+        <div class="row">
 
-<option [value]="5">5</option>
+            <div class="col-md-5">
 
-<option [value]="4">4</option>
+                <img
+                    [src]="food.imageUrl"
+                    [alt]="food.name"
+                    class="img-fluid rounded shadow w-100">
 
-<option [value]="3">3</option>
+            </div>
 
-<option [value]="2">2</option>
+            <div class="col-md-7">
 
-<option [value]="1">1</option>
+                <h2>{{food.name}}</h2>
 
-</select>
+                <h3 class="text-success mt-3">
+                    ₹{{food.price}}
+                </h3>
 
-<textarea
+                <p class="mt-3">
+                    {{food.description}}
+                </p>
 
-class="form-control mb-3"
+                <div class="mb-3">
 
-rows="3"
+                    <span class="badge bg-primary fs-6">
 
-[(ngModel)]="comment"
+                        {{food.categoryName}}
 
-placeholder="Write review">
+                    </span>
 
-</textarea>
+                </div>
 
-<button
+                <button
+                    class="btn btn-success btn-lg"
+                    (click)="addToCart()">
 
-class="btn btn-primary"
+                    <i class="bi bi-cart-plus"></i>
 
-(click)="submitReview()">
+                    Add To Cart
 
-Submit Review
+                </button>
 
-</button>
+            </div>
 
-<hr>
+        </div>
 
-<div
+        <hr class="my-5">
 
-class="card mb-3"
+        <h3>Customer Reviews</h3>
 
-*ngFor="let review of reviews">
+        <div class="card mt-3">
 
-<div class="card-body">
+            <div class="card-body">
 
-<h5>
+                <h5>Write a Review</h5>
 
-{{review.userName}}
+                <div class="mb-3">
 
-</h5>
+                    <label class="form-label">
 
-<p>
+                        Rating
 
-⭐ {{review.rating}} / 5
+                    </label>
 
-</p>
+                    <select
+                        class="form-select"
+                        [(ngModel)]="rating">
 
-<p>
+                        <option [value]="5">⭐⭐⭐⭐⭐ (5)</option>
+                        <option [value]="4">⭐⭐⭐⭐ (4)</option>
+                        <option [value]="3">⭐⭐⭐ (3)</option>
+                        <option [value]="2">⭐⭐ (2)</option>
+                        <option [value]="1">⭐ (1)</option>
 
-{{review.comment}}
+                    </select>
 
-</p>
+                </div>
 
-</div>
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Comment
+
+                    </label>
+
+                    <textarea
+                        rows="4"
+                        class="form-control"
+                        [(ngModel)]="comment"
+                        placeholder="Write your review...">
+
+                    </textarea>
+
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    (click)="submitReview()">
+
+                    Submit Review
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="mt-5">
+
+            <div *ngIf="reviews.length==0">
+
+                <div class="alert alert-info">
+
+                    No reviews yet.
+
+                </div>
+
+            </div>
+
+            <div
+                *ngFor="let review of reviews"
+                class="card mb-3 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <strong>
+
+                            {{review.userName}}
+
+                        </strong>
+
+                        <span class="badge bg-warning text-dark">
+
+                            ⭐ {{review.rating}}/5
+
+                        </span>
+
+                    </div>
+
+                    <p class="mt-3 mb-0">
+
+                        {{review.comment}}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        *ngIf="!loading && !food"
+        class="alert alert-danger">
+
+        Food item not found.
+
+    </div>
 
 </div>

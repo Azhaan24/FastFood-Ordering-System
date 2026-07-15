@@ -41,9 +41,9 @@ namespace FastFood.Infrastructure.Services
                 foodItems = foodItems.Where(x => x.CategoryId == query.CategoryId.Value);
             }
 
-            if ((bool)query.IsAvailable)
+            if (query.IsAvailable.HasValue)
             {
-                foodItems = foodItems.Where(x => x.IsAvailable);
+                foodItems = foodItems.Where(x => x.IsAvailable == query.IsAvailable.Value);
             }
 
             var totalRecords = foodItems.Count();

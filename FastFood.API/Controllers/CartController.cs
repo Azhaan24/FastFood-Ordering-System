@@ -1,4 +1,5 @@
-﻿using FastFood.Core.DTOs.Cart;
+﻿using Asp.Versioning;
+using FastFood.Core.DTOs.Cart;
 using FastFood.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,8 @@ using System.Security.Claims;
 namespace FastFood.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize]
     public class CartController : ControllerBase
     {

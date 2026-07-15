@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 [Authorize(Roles = "Admin")]
 [ApiController]
-[Route("api/admin")]
+[Route("api/v{version:apiVersion}/admin")]
 public class AdminController : ControllerBase
 {
     private readonly IAdminService _service;

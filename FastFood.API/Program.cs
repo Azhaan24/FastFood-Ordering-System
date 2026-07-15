@@ -107,6 +107,18 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtTokenService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Angular", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // Configure HTTP Pipeline
@@ -129,10 +141,15 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors("Angular");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseOutputCache();
+
 app.MapControllers();
+
 
 using (var scope = app.Services.CreateScope())
 {

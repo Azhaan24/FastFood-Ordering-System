@@ -1,4 +1,5 @@
-﻿using FastFood.Core.DTOs.Order;
+﻿using Asp.Versioning;
+using FastFood.Core.DTOs.Order;
 using FastFood.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace FastFood.API.Controllers
 {
     [ApiController]
-    [Route("api/admin/orders")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/admin/orders")]
     [Authorize(Roles = "Admin")]
     public class AdminOrderController : ControllerBase
     {
