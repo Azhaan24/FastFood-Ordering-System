@@ -85,8 +85,3 @@ The application allows customers to browse food items, place orders, manage cart
 - Swagger Documentation
 
 ---
-
-
-## ⭐ If you like this project
-
-Please consider giving it a ⭐ on GitHub.
